@@ -7,11 +7,11 @@ int keypad[12][2] = {[0,0], [1,0], [2,0],
 					 [0,1], [1,1], [2,1],
 					 [0,2], [1,2], [2,2],
 					 [0,3], [1,3], [2,3]};
-// keypad[10] == *
-// keypad[12] == #
+// keypad[9] == *
+// keypad[11] == #
 
-int lPos[2] = keypad[10];
-int rPos[2] = keypad[12];
+int lPos[2] = keypad[9];
+int rPos[2] = keypad[11];
 
 int leftDistance;
 int rightDistance;
@@ -41,6 +41,13 @@ string solution(vector<int> numbers, string hand) {
 
 char returnHand(int num, string hand) {
 
+	if (num == 0) {
+		// 누를 숫자가 0이라면,  0의 키패드 좌표로 옮겨주기 위해서 num의 값을 변경한다
+		num = 10;
+	} else {
+		num--;
+	}
+
 	// 현재 손과 눌러야할 번호의 거리를 구하는 함수
 	measureDistance(num);
 
@@ -66,9 +73,7 @@ int abs(int num) {
 	if (num < 0) {
 		return num * -1;
 	}
-	else {
-		return num;
-	}
+	return num;
 }
 
 char chooseHand(int num, string hand) {
