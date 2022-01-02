@@ -39,12 +39,12 @@ string solution(vector<int> numbers, string hand) {
 
 
 
-string returnHand(int num, string hand) {
+char returnHand(int num, string hand) {
 
 	// 현재 손과 눌러야할 번호의 거리를 구하는 함수
 	measureDistance(num);
 
-	return chooseHand(string hand);
+	return chooseHand(num, hand);
 }
 
 void measureDistance(int num) {
@@ -71,20 +71,24 @@ int abs(int num) {
 	}
 }
 
-string chooseHand(string hand) {
+char chooseHand(int num, string hand) {
 	if (leftDistance == rightDistance) {
 		if (hand == "left") {
+			switchHandPos(0, num);
 			return "L";
 		}
 		else {
+			switchHandPos(1, num);
 			return "R";
 		}
 	}
 	else if (leftDistance > rightDistance) {
+		switchHandPos(1, num);
 		return "R";
 	}
 	else {
-		"L";
+		switchHandPos(0, num);
+		return "L";
 	}
 }
 
