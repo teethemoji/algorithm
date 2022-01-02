@@ -3,31 +3,43 @@
 
 using namespace std;
 
-int keypad[12][2] = {[0,0], [1,0], [2,0],
-					 [0,1], [1,1], [2,1],
-					 [0,2], [1,2], [2,2],
-					 [0,3], [1,3], [2,3]};
+int keypad[12][2] = { {0,0}, {1,0}, {2,0},
+						{0,1}, {1,1}, {2,1},
+						{0,2}, {1,2}, {2,2},
+						{0,3}, {1,3}, {2,3} };
 // keypad[9] == *
 // keypad[11] == #
 
-int lPos[2] = keypad[9];
-int rPos[2] = keypad[11];
+// init left and right hand position
+int lPos[2] = { 0, 3 }; // keypad[9]
+int rPos[2] = { 2, 3 }; // keypad[11]
 
 int leftDistance;
 int rightDistance;
 
+// function declaration
+void switchHandPos(int hand, int keypadNum);
+char returnHand(int num, string hand);
+void measureDistance(int num);
+char chooseHand(int num, string hand);
+
+
 string solution(vector<int> numbers, string hand) {
 	string answer = "";
 
-	for (int i = 0; i < numbers.length; i++) {
+	for (int i = 0; i < numbers.size(); i++) {
 		switch (numbers[i]) {
-		case 1, 4, 7:
+		case 1:
+		case 4:
+		case 7:
 			answer += "L";
-			switchHandPos(0, numbers[i]);
+			switchHandPos(0, numbers[i] - 1);
 			break;
-		case 3, 6, 9:
+		case 3:
+		case 6:
+		case 9:
 			answer += "R";
-			switchHandPos(1, numbers[i]);
+			switchHandPos(1, numbers[i] - 1);
 			break;
 		default:
 			answer += returnHand(numbers[i], hand);
@@ -37,14 +49,13 @@ string solution(vector<int> numbers, string hand) {
 	return answer;
 }
 
-
-
 char returnHand(int num, string hand) {
 
 	if (num == 0) {
 		// 누를 숫자가 0이라면,  0의 키패드 좌표로 옮겨주기 위해서 num의 값을 변경한다
 		num = 10;
-	} else {
+	}
+	else {
 		num--;
 	}
 
@@ -73,27 +84,29 @@ int abs(int num) {
 	if (num < 0) {
 		return num * -1;
 	}
-	return num;
+	else {
+		return num;
+	}
 }
 
 char chooseHand(int num, string hand) {
 	if (leftDistance == rightDistance) {
 		if (hand == "left") {
 			switchHandPos(0, num);
-			return "L";
+			return 'L';
 		}
 		else {
 			switchHandPos(1, num);
-			return "R";
+			return 'R';
 		}
 	}
 	else if (leftDistance > rightDistance) {
 		switchHandPos(1, num);
-		return "R";
+		return 'R';
 	}
 	else {
 		switchHandPos(0, num);
-		return "L";
+		return 'L';
 	}
 }
 
@@ -101,9 +114,13 @@ void switchHandPos(int hand, int keypadNum) {
 	// 0 == left
 	// 1 == right
 	if (hand) {
-		rPos = keypad[keypadNum];
+		rPos[0] = keypad[keypadNum][0];
+		rPos[1] = keypad[keypadNum][1];
 	}
 	else {
-		lPos = keypad[keypadNum];
+		lPos[0] = keypad[keypadNum][0];
+		lPos[1] = keypad[keypadNum][1];
 	}
+
+	return;
 }
