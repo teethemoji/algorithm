@@ -2,41 +2,56 @@
 #include <iostream>
 using namespace std;
 
+// Function declaration
+// int caculateIteration(int sizeOfVector);
+bool isPrime(int number);
+
+// Solution
 int solution(vector<int> nums) {
-    int answer = -1;
-    
+
     int pointer1 = 0;
     int pointer2 = 1;
     int pointer3 = 2;
-
-    int 몇번이나 반복해야 하나용(int sizeOfVector){
-        int temp= sizeOfVector - 2;
-    int counter = 0;
-        while(temp != 0){
-            for(int i = 1; i <= num; i++){
-                counter += i;
-            }
-            num—;
-        }
-        return temp;
-    }
-
-    int iteration = 몇번이나반복해야하나용(vector.size());
-
+    
     int temp;
     int primeCounter = 0;
 
-    for(int i = 0; i < iteration; i++){
-        // if pointer2 + 1 == pointer3
-            then pointer2++ and pointer3 = pointer2+1
-            for(int n = 0; n < vector.size() - pointer3){
-                temp = vector[pointer1] + vector[pointer2];
-                temp += vector[pointer3;
+    while(pointer1 <= nums.size() - 2){
+        for(int i = 0; i < nums.size(); i++){
+     
+            if((pointer1 + pointer2) == pointer3){
+                pointer2++;
+                pointer3 = pointer1 + pointer2;
+            }
+            
+            for(int n = 0; n < nums.size() - pointer3; n++){
+                temp = (nums[pointer1] + nums[pointer2]) + nums[pointer3];
                 if(isPrime(temp)){
                     primeCounter++;
                 }
                 pointer3++;
-		}
+            }
+            pointer2++;
+        }
+        pointer1++;
+    }
+
+    return primeCounter;
+}
+
+int caculateIteration(int sizeOfVector){
+    
+    int iteration = sizeOfVector - 2;
+    int returnValue = 0;
+    
+    while(0 != iteration){
+        for(int i = 1; i <= iteration; i++){
+            returnValue += i;
+        }
+        iteration--;
+    }
+    
+    return returnValue;
 }
 
 // 소수인지 확인하는 함수
@@ -50,6 +65,4 @@ bool isPrime(int number){
     }
     return true;
 
-}
-    return answer;
 }
